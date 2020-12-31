@@ -10,15 +10,15 @@
 
 ## SPEAR-ATAC Analyses (See Scripts Folder)
 
-**Download-Test-SpearATAC-Data.R - Code for downloading SpearATAC test data.** <br/> <br/>
+**Download-Test-SpearATAC-Data.R - Code for downloading SpearATAC test data.** 
 
-**SpearATAC-Align-sgRNA.R** - Code for analysis of SpearATAC Screen. <br/> <br/>
+**SpearATAC-Align-sgRNA.R** - Code for analysis of SpearATAC Screen. 
 
-**Analysis-of-Spear-ATAC-Screen.R** - Code for analysis of SpearATAC Screen. <br/> <br/>
+**Analysis-of-Spear-ATAC-Screen.R** - Code for analysis of SpearATAC Screen. 
 
-**SpearATAC-Functions.R** - Helper Functions for SpearATAC Analysis. <br/> <br/>
+**SpearATAC-Functions.R** - Helper Functions for SpearATAC Analysis. 
 
-# Tutorial Data is From K562 Large Screen
+# Test Data is From K562 Large Screen
 
 ## Data Files
 
