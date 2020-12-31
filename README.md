@@ -20,13 +20,13 @@
 
 ## Data Files
 
-**data/K562_R1.fragments.tsv.gz** - 10x Genomics Fragment Files
-**data/K562_R2.fragments.tsv.gz** - 10x Genomics Fragment Files
+**data/K562_R1.fragments.tsv.gz** - 10x Genomics Fragment Files <br/>
+**data/K562_R2.fragments.tsv.gz** - 10x Genomics Fragment Files <br/>
 
-**data/K562_R1.singlecell.csv** - 10x Genomics Summary Stats containing cells passing filters
-**data/K562_R1.singlecell.csv** - 10x Genomics Summary Stats containing cells passing filters
+**data/K562_R1.singlecell.csv** - 10x Genomics Summary Stats containing cells passing filters <br/>
+**data/K562_R1.singlecell.csv** - 10x Genomics Summary Stats containing cells passing filters <br/>
 
-**data/K562_R1.sgRNA.rds** - SpearATAC sgRNA Files containing Barcode Alignments
-**data/K562_R2.sgRNA.rds** - SpearATAC sgRNA Files containing Barcode Alignments
+**data/K562_R1.sgRNA.rds** - SpearATAC sgRNA Files containing Barcode Alignments <br/>
+**data/K562_R2.sgRNA.rds** - SpearATAC sgRNA Files containing Barcode Alignments <br/>
 
 **Vierstra-Human-Motifs.rds** - Motifs from Vierstra et al Nature 2020
