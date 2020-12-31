@@ -12,9 +12,13 @@ dataFiles <- c(
 	"K562_R2.singlecell.csv"
 )
 
+dir.create("data", showWarnings = FALSE)
+
 for(i in seq_along(dataFiles)){
-	download.file(
-		url = file.path(aws, dataFiles[i]),
-		destfile = file.path("data", dataFiles[i])
-	)
+	if(!file.exists(file.path("data", dataFiles[i]))){
+		download.file(
+			url = file.path(aws, dataFiles[i]),
+			destfile = file.path("data", dataFiles[i])
+		)
+	}
 }

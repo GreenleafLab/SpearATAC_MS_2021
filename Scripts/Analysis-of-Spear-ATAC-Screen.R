@@ -17,6 +17,9 @@ library(ArchR)
 addArchRGenome("hg38")
 addArchRThreads(20)
 
+#Make Sure Data is present
+source("Scripts/Download-Test-SpearATAC-Data.R")
+
 #Helpful functions designed for SpearATAC Analysis
 source("Scripts/SpearATAC-Functions.R")
 
@@ -242,13 +245,59 @@ proj <- addPeakMatrix(proj, force = TRUE)
 motifPWMs <- readRDS("Vierstra-Human-Motifs.rds")
 proj <- addMotifAnnotations(proj, motifPWMs = motifPWMs, name = "Vierstra")
 proj <- addDeviationsMatrix(proj, peakAnnotation = "Vierstra", force = TRUE)
-
-#Filter These sgRNA non-targetting because they seem to exhibit some differences from the other sgNT
-#This step helps a bit, but is not necessary to get differential results
-bgd <- grep("sgNT", proj$sgIndividual, value=TRUE) %>% unique
-bgd <- bgd[!grepl("-11|-12|-8|-5|-6", bgd)]
-proj$sgAssignClean <- proj$sgAssignFinal
-proj$sgAssignClean[grepl("-11|-12|-8|-5|-6", proj$sgIndividual)] <- "UNK"
+# Identifying Background Peaks!
+# ArchR logging to : ArchRLogs/ArchR-addDeviationsMatrix-17c3e7f0b2ebe-Date-2020-12-30_Time-22-04-57.log
+# If there is an issue, please report to github with logFile!
+# NULL
+# 2020-12-30 22:05:02 : Batch Execution w/ safelapply!, 0 mins elapsed.
+# 2020-12-30 22:05:04 : chromVAR deviations K562_R1 (2 of 2) Schep (2017), 0.041 mins elapsed.
+# 2020-12-30 22:05:04 : chromVAR deviations K562_R2 (1 of 2) Schep (2017), 0.041 mins elapsed.
+# 2020-12-30 22:08:42 : K562_R1 (2 of 2) : Deviations for Annotation 108 of 2174, 3.291 mins elapsed.
+# 2020-12-30 22:08:57 : K562_R2 (1 of 2) : Deviations for Annotation 108 of 2174, 3.491 mins elapsed.
+# 2020-12-30 22:11:44 : K562_R1 (2 of 2) : Deviations for Annotation 216 of 2174, 6.336 mins elapsed.
+# 2020-12-30 22:12:07 : K562_R2 (1 of 2) : Deviations for Annotation 216 of 2174, 6.666 mins elapsed.
+# 2020-12-30 22:15:55 : K562_R1 (2 of 2) : Deviations for Annotation 324 of 2174, 10.518 mins elapsed.
+# 2020-12-30 22:16:37 : K562_R2 (1 of 2) : Deviations for Annotation 324 of 2174, 11.16 mins elapsed.
+# 2020-12-30 22:19:25 : K562_R1 (2 of 2) : Deviations for Annotation 432 of 2174, 14.015 mins elapsed.
+# 2020-12-30 22:20:20 : K562_R2 (1 of 2) : Deviations for Annotation 432 of 2174, 14.876 mins elapsed.
+# 2020-12-30 22:22:52 : K562_R1 (2 of 2) : Deviations for Annotation 540 of 2174, 17.466 mins elapsed.
+# 2020-12-30 22:24:12 : K562_R2 (1 of 2) : Deviations for Annotation 540 of 2174, 18.74 mins elapsed.
+# 2020-12-30 22:25:47 : K562_R1 (2 of 2) : Deviations for Annotation 648 of 2174, 20.383 mins elapsed.
+# 2020-12-30 22:27:17 : K562_R2 (1 of 2) : Deviations for Annotation 648 of 2174, 21.828 mins elapsed.
+# 2020-12-30 22:28:13 : K562_R1 (2 of 2) : Deviations for Annotation 756 of 2174, 22.818 mins elapsed.
+# 2020-12-30 22:29:51 : K562_R2 (1 of 2) : Deviations for Annotation 756 of 2174, 24.392 mins elapsed.
+# 2020-12-30 22:31:10 : K562_R1 (2 of 2) : Deviations for Annotation 864 of 2174, 25.76 mins elapsed.
+# 2020-12-30 22:33:05 : K562_R2 (1 of 2) : Deviations for Annotation 864 of 2174, 27.63 mins elapsed.
+# 2020-12-30 22:34:31 : K562_R1 (2 of 2) : Deviations for Annotation 972 of 2174, 29.11 mins elapsed.
+# 2020-12-30 22:36:32 : K562_R2 (1 of 2) : Deviations for Annotation 972 of 2174, 31.075 mins elapsed.
+# 2020-12-30 22:37:06 : K562_R1 (2 of 2) : Deviations for Annotation 1080 of 2174, 31.703 mins elapsed.
+# 2020-12-30 22:39:11 : K562_R2 (1 of 2) : Deviations for Annotation 1080 of 2174, 33.73 mins elapsed.
+# 2020-12-30 22:39:32 : K562_R1 (2 of 2) : Deviations for Annotation 1188 of 2174, 34.125 mins elapsed.
+# 2020-12-30 22:41:50 : K562_R2 (1 of 2) : Deviations for Annotation 1188 of 2174, 36.378 mins elapsed.
+# 2020-12-30 22:41:58 : K562_R1 (2 of 2) : Deviations for Annotation 1296 of 2174, 36.556 mins elapsed.
+# 2020-12-30 22:44:04 : K562_R1 (2 of 2) : Deviations for Annotation 1404 of 2174, 38.667 mins elapsed.
+# 2020-12-30 22:44:24 : K562_R2 (1 of 2) : Deviations for Annotation 1296 of 2174, 38.95 mins elapsed.
+# 2020-12-30 22:46:33 : K562_R1 (2 of 2) : Deviations for Annotation 1512 of 2174, 41.146 mins elapsed.
+# 2020-12-30 22:46:43 : K562_R2 (1 of 2) : Deviations for Annotation 1404 of 2174, 41.267 mins elapsed.
+# 2020-12-30 22:48:55 : K562_R1 (2 of 2) : Deviations for Annotation 1620 of 2174, 43.514 mins elapsed.
+# 2020-12-30 22:49:29 : K562_R2 (1 of 2) : Deviations for Annotation 1512 of 2174, 44.038 mins elapsed.
+# 2020-12-30 22:51:27 : K562_R1 (2 of 2) : Deviations for Annotation 1728 of 2174, 46.043 mins elapsed.
+# 2020-12-30 22:52:11 : K562_R2 (1 of 2) : Deviations for Annotation 1620 of 2174, 46.733 mins elapsed.
+# 2020-12-30 22:54:54 : K562_R1 (2 of 2) : Deviations for Annotation 1836 of 2174, 49.502 mins elapsed.
+# 2020-12-30 22:55:04 : K562_R2 (1 of 2) : Deviations for Annotation 1728 of 2174, 49.614 mins elapsed.
+# 2020-12-30 22:57:26 : K562_R1 (2 of 2) : Deviations for Annotation 1944 of 2174, 52.028 mins elapsed.
+# 2020-12-30 22:58:44 : K562_R2 (1 of 2) : Deviations for Annotation 1836 of 2174, 53.282 mins elapsed.
+# 2020-12-30 23:00:00 : K562_R1 (2 of 2) : Deviations for Annotation 2052 of 2174, 54.595 mins elapsed.
+# 2020-12-30 23:01:25 : K562_R2 (1 of 2) : Deviations for Annotation 1944 of 2174, 55.969 mins elapsed.
+# 2020-12-30 23:03:14 : K562_R1 (2 of 2) : Deviations for Annotation 2160 of 2174, 57.825 mins elapsed.
+# 2020-12-30 23:03:46 : Finished Computing Deviations!, 58.736 mins elapsed.
+# 2020-12-30 23:04:13 : K562_R2 (1 of 2) : Deviations for Annotation 2052 of 2174, 58.765 mins elapsed.
+# 2020-12-30 23:07:24 : K562_R2 (1 of 2) : Deviations for Annotation 2160 of 2174, 61.947 mins elapsed.
+# 2020-12-30 23:07:55 : Finished Computing Deviations!, 62.887 mins elapsed.
+# ###########
+# 2020-12-30 23:07:55 : Completed Computing Deviations!, 62.958 mins elapsed.
+# ###########
+# ArchR logging successful to : ArchRLogs/ArchR-addDeviationsMatrix-17c3e7f0b2ebe-Date-2020-12-30_Time-22-04-57.log
 
 ####################################
 # Rank Differential Motifs
@@ -297,7 +346,10 @@ dedupN <- function(x, n){
 top_D <- df_D[dedupN(df_D$sgRNA, 4),] %>% {.[.$value>0.8,]}
 
 #Create Nice Label
-top_D$label <- paste0(top_D$sgRNA,":",stringr::str_split(top_D$Var1,pattern="_",simplify=TRUE)[,1])
+top_D$label <- paste0(
+	top_D$sgRNA,":",
+	stringr::str_split(top_D$Var1,pattern="_",simplify=TRUE)[,1], ":",
+	stringr::str_split(top_D$Var1,pattern="#|:",simplify=TRUE)[,2])
 
 #Palette
 pal <- paletteDiscrete(df_D$sgRNA)
@@ -308,13 +360,34 @@ p <- ggplot(df_D[order(df_D$value), ], aes(rank, value, color = sgRNA)) +
 	theme_ArchR() +
 	scale_color_manual(values=pal) +
 	ylab("Deviation Difference") +
-	ggrepel::geom_text_repel(data=top_G, aes(rank, value, label = label))
+	ggrepel::geom_text_repel(data=top_D, aes(rank, value, label = label))
 
-plotPDF(p, name = "Plot-Top-Motif-Hits-Per-sgRNA", width=6, height=6)
+plotPDF(p, name = "Plot-Top-Motif-Hits-Per-sgRNA", width=12, height=12, addDOC=FALSE)
+
+####################################
+# Footprinting of Motifs
+####################################
+
+Gata1_Positions <- getPositions(proj, "Vierstra")[df_D$Var1[1]]
+
+seFoot <- getFootprints(
+ ArchRProj = proj, positions = Gata1_Positions,
+ groupBy = "sgAssignFinal",
+ plotName = "Plot-Gata1", useGroups = c("sgGATA1", "sgsgNT")
+)
+
+p <- plotFootprints(seFoot, addDOC=FALSE, ArchRProj = proj)
 
 ####################################
 # Compute Differential Peaks
 ####################################
+
+#Filter These sgRNA non-targetting because they seem to exhibit some differences from the other sgNT
+#This step helps a bit, but is not necessary to get differential results
+bgd <- grep("sgNT", proj$sgIndividual, value=TRUE) %>% unique
+bgd <- bgd[!grepl("-11|-12|-8|-5|-6", bgd)]
+proj$sgAssignClean <- proj$sgAssignFinal
+proj$sgAssignClean[grepl("-11|-12|-8|-5|-6", proj$sgIndividual)] <- "UNK"
 
 #Sort sgRNA Targets so Results are in alphabetical order
 useGroups <- sort(unique(proj$sgAssignClean)[unique(proj$sgAssignClean) %ni% c("UNK")])
@@ -335,15 +408,63 @@ diffPeaks <- getMarkerFeatures(
 )
 
 #Heatmap
-heatmapPeaks <- plotMarkerHeatmap(diffPeaks, cutOff = "FDR <= 0.05 & Log2FC >= 0")
+heatmapPeaks <- plotMarkerHeatmap(diffPeaks, cutOff = "FDR <= 0.05 & Log2FC >= 2", nLabel = 1)
 
 #Plot Heatmap
-plotPDF(heatmapPeaks, name = "Peaks-Marker-Heatmap", width = 8, height = 12, ArchRProj = proj)
+plotPDF(heatmapPeaks, name = "Peaks-Marker-Heatmap", width = 12, height = 12, addDOC=FALSE)
+
+####################################
+# MA/Volcano Plot
+####################################
+
+p1 <- plotMarkers(seMarker = diffPeaks, name = "sgGATA1", cutOff = "FDR <= 0.1 & abs(Log2FC) >= 0", plotAs = "MA")
+p2 <- plotMarkers(seMarker = diffPeaks, name = "sgGATA1", cutOff = "FDR <= 0.1 & abs(Log2FC) >= 0", plotAs = "Volcano")
+plotPDF(p1,p2, name = "Pairwise-sgGATA1-MA-Volcano", width = 6, height = 6, addDOC=FALSE)
+
+#Motif Enrichment
+motifsDo <- peakAnnoEnrichment(
+    seMarker = diffPeaks,
+    ArchRProj = proj,
+    peakAnnotation = "Vierstra",
+    cutOff = "FDR <= 0.1 & Log2FC <= -0.5"
+  )
+
+df <- data.frame(TF = rownames(motifsDo), mlog10Padj = assay(motifsDo)[,"sgGATA1"])
+df <- df[order(df$mlog10Padj, decreasing = TRUE),]
+df$rank <- seq_len(nrow(df))
+
+#Print
+head(df)
+#                                  TF mlog10Padj rank
+# 1835      TAL1_1835#GATA:C2H2:242:0   247.1534    1
+# 591       GATA1_591#GATA:C2H2:242:0   232.4469    2
+# 1836      TAL1_1836#GATA:C2H2:242:0   223.6072    3
+# 594  GATA1+TAL1_594#GATA:C2H2:242:1   217.6190    4
+# 595       GATA2_595#GATA:C2H2:242:0   211.4328    5
+# 593       GATA1_593#GATA:C2H2:242:0   181.1279    6
+
+#plot
+ggDo <- ggplot(df, aes(rank, mlog10Padj, color = mlog10Padj)) + 
+  geom_point(size = 1) +
+  ggrepel::geom_label_repel(
+        data = df[rev(seq_len(15)), ], aes(x = rank, y = mlog10Padj, label = TF), 
+        size = 1.5,
+        nudge_x = 2,
+        color = "black"
+  ) + theme_ArchR() + 
+  ylab("-log10(P-adj) Motif Enrichment") + 
+  xlab("Rank Sorted TFs Enriched") +
+  scale_color_gradientn(colors = paletteContinuous(set = "comet"))
+
+plotPDF(ggDo, name = "sgGATA1-Motif-Decreasing-Peaks", width = 6, height = 6, addDOC=FALSE)
+
+####################################
+# Save Info
+####################################
 
 #Save RData
-save.image("Save-SpearATAC-Analysis.Rdata")
+save.image("Save-SpearATAC-Analysis.Rdata", compress = FALSE)
 
 #Session Info
-writeLines(sessionInfo(), file = "R-Session-Info.txt")
-
+cat(paste0(capture.output(sessionInfo()), "\n"), file = "R-Session-Info.txt")
 
