@@ -6,7 +6,8 @@
 
 ![](Images/Figure1.png)
 
-# Spear-ATAC sgRNA Align Barcodes (See AlignSgRNA Folder)
+# Spear-ATAC sgRNA Align Barcodes <br/>
+# (See AlignSgRNA Folder)
 
 ## Scripts (See Scripts Folder)
 
@@ -16,7 +17,7 @@
 
 **SpearATAC-Align-sgRNA.R** - Code for analysis of SpearATAC Screen. 
 
-## Data Files
+## Data Files (See data Folder)
 
 **10x-Barcodes.txt** - 10x Genomics Cell Barcodes for scATAC-seq <br/>
 
@@ -27,7 +28,8 @@
 **sgRNA-K562-TimeCourse.txt** - sgRNA barcodes for K562 Time Coures screen (change in Snake-Align-sgRNA.py) <br/>
 **sgRNA-LargeScreen.txt** - sgRNA barcodes for Large screens (change in Snake-Align-sgRNA.py) <br/>
 
-# Spear-ATAC Analysis of scATAC + sgRNA data (See AnalyzeSpearATAC Folder)
+# Spear-ATAC Analysis of scATAC + sgRNA data <br/>
+# (See AnalyzeSpearATAC Folder)
 
 ## Scripts (See Scripts Folder)
 
