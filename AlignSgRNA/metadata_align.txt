@@ -1,0 +1,2 @@
+Name	Read1	Index	Group
+K562_Large_1	data/K562_Large_1_R1-Downsampled.barcoded.fastq.gz	data/K562_Large_1_I2-Downsampled.barcoded.fastq.gz	K562_Large_1

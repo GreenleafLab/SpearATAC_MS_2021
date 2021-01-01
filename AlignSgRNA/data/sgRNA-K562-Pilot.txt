@@ -1,0 +1,9 @@
+sgGATA1-1	ATGCTCGTTGcgaggctgagtgtag
+sgGATA1-2	CGCAGTGAGTcgaggctgagtgtag
+sgGATA1-3	CATGCACAGAcgaggctgagtgtag
+sgGATA2-1	CATGTAAGACcgaggctgagtgtag
+sgGATA2-2	GTTGTGCCAGcgaggctgagtgtag
+sgGATA2-3	GGAATGTCGTcgaggctgagtgtag
+sgNT-1	GGCACTTCTAcgaggctgagtgtag
+sgNT-2	ATACTGATTCcgaggctgagtgtag
+sgNT-3	GCAGTAAGGTcgaggctgagtgtag
