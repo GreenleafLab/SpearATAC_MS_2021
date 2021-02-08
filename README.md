@@ -12,7 +12,7 @@
 ## Align Barcodes Run Time (10-20 minutes)
 ## Spear ATAC Analysis (~30 min - 2 hours - depending on data size)
 ## Dependencies are as listed in the individual files but here are the overall versions used
-**R** 3.6.1 - ArchR, ShortRead, readr, data.table, fastmatc, magrittr <br/>
+**R** 3.6.1 - ArchR, ShortRead, readr, data.table, fastmatch, magrittr <br/>
 **Python** 3.6.1 - snakemake
 
 # sgRNA Align Barcodes (See AlignSgRNA Folder)
