@@ -6,6 +6,8 @@
 
 ![](Images/Figure1.png)
 
+# Download Time (~30 Seconds)
+
 # sgRNA Align Barcodes (See AlignSgRNA Folder)
 
 ## Scripts (See Scripts Folder)
